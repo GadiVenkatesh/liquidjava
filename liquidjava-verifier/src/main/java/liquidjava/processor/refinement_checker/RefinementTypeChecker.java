@@ -254,7 +254,10 @@ public class RefinementTypeChecker extends TypeChecker {
 
         } else if (ex instanceof CtFieldWrite<?> fw) {
             CtFieldReference<?> cr = fw.getVariable();
-            CtField<?> f = fw.getVariable().getDeclaration();
+            CtField<?> f = cr.getDeclaration();
+            if (f == null) {
+                return;
+            }
             String updatedVarName = Utils.qualifyFieldName(cr);
             checkAssignment(updatedVarName, cr.getType(), ex, assignment.getAssignment(), assignment, f);
 
